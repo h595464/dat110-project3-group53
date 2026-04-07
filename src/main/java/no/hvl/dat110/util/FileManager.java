@@ -6,9 +6,7 @@ package no.hvl.dat110.util;
  * dat110 - project 3
  */
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
@@ -57,7 +55,16 @@ public class FileManager {
 	}
 	
 	public void createReplicaFiles() {
-	 	
+
+		for (int i = 0; i<numReplicas; i++) {
+
+			String replicaFilename = filename+i;
+
+			BigInteger replicaHash = Hash.hashOf(replicaFilename);
+
+			replicafiles[i] = replicaHash;
+
+		}
 		// set a loop where size = numReplicas
 		
 		// replicate by adding the index to filename
