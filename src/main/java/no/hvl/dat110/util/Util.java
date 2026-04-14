@@ -38,10 +38,19 @@ public class Util {
 	 */
 	public static boolean checkInterval(BigInteger id, BigInteger lower, BigInteger upper) {
 
-		boolean check = false;
-		if (lower.intValue()<=id.intValue()
-				&& id.intValue() <= upper.intValue()) check = true;
-		return check;
+        int cmpLowerUpper = lower.compareTo(upper);
+        int cmpIdLower = id.compareTo(lower);
+        int cmpIdUpper = id.compareTo(upper);
+
+        if (cmpLowerUpper < 0) {
+            return (cmpIdLower > 0 && cmpIdUpper <= 0);
+        }
+        else if (cmpLowerUpper > 0) {
+            return (cmpIdLower > 0 || cmpIdUpper <= 0);
+        }
+        else {
+            return true;
+        }
 
 		// Hint:
 		// using mod = 10, then the interval (6, 2) = (6, 7, 8, 9, 0, 1, 2)
