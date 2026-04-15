@@ -73,14 +73,12 @@ public class FileManager {
      * @param bytesOfFile
      * @throws RemoteException 
      */
-    public int distributeReplicastoPeers(byte[] bytesOfFile) throws RemoteException {
+    public int distributeReplicastoPeers() throws RemoteException {
 
         Random rnd = new Random();
         int primaryIndex = rnd.nextInt(numReplicas);
 
         int counter = 0;
-
-        createReplicaFiles();
 
         for (int i = 0; i < numReplicas; i++) {
 
@@ -88,16 +86,21 @@ public class FileManager {
 
             if (replicaID == null) continue;
 
+            // find responsible node using Chord
             NodeInterface successor = chordnode.findSuccessor(replicaID);
 
             if (successor != null) {
 
+                // assign replica to node
                 successor.addKey(replicaID);
 
+                // reconstruct replica filename (e.g., test0, test1, ...)
                 String replicaName = filename + i;
 
+                // determine primary replica
                 boolean isPrimary = (i == primaryIndex);
 
+                // store file on node
                 successor.saveFileContent(replicaName, replicaID, bytesOfFile, isPrimary);
 
                 counter++;
