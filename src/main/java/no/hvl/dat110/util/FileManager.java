@@ -65,13 +65,7 @@ public class FileManager {
 			replicafiles[i] = replicaHash;
 
 		}
-		// set a loop where size = numReplicas
-		
-		// replicate by adding the index to filename
-		
-		// hash the replica
-		
-		// store the hash in the replicafiles array.
+
 	}
 	
     /**
