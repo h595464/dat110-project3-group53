@@ -76,6 +76,8 @@ public class FileManager {
      */
     public int distributeReplicastoPeers() throws RemoteException {
 
+        createReplicaFiles();
+
         Random rnd = new Random();
         int primaryIndex = rnd.nextInt(numReplicas);
 
